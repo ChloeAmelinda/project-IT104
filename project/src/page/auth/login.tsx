@@ -1,29 +1,52 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");           // dùng email thay cho username
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [success, setSuccess] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const nav = useNavigate();
+  const API_URL = "http://localhost:8080/users";
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     let newErrors: { [key: string]: string } = {};
     setSuccess("");
 
-    if (!username.trim()) {
-      newErrors.username = "Please enter your username ...";
-    }
-    if (!password.trim()) {
-      newErrors.password = "Please enter your password ...";
-    }
+    if (!email.trim()) newErrors.email = "Vui lòng nhập email ...";
+    if (!password.trim()) newErrors.password = "Vui lòng nhập mật khẩu ...";
 
     setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
 
-    if (Object.keys(newErrors).length === 0) {
-      setSuccess("Sign In Successfully");
-      setUsername("");
-      setPassword("");
+    try {
+      // Lấy user theo email
+      const res = await axios.get(`${API_URL}?email=${encodeURIComponent(email)}`);
+      const user = res.data?.[0];
+
+      if (!user) {
+        setErrors({ email: "Email chưa được đăng ký." });
+        return;
+      }
+      if (user.password !== password) {
+        setErrors({ password: "Mật khẩu không đúng." });
+        return;
+      }
+
+      // Thành công
+      setSuccess("Đăng nhập thành công!");
+      setErrors({});
+      // (Tuỳ chọn) lưu user
+      localStorage.setItem("auth_user", JSON.stringify({ id: user.id, email: user.email }));
+
+      // Điều hướng sang Home
+      nav("/user/home");
+    } catch (err) {
+      console.error(err);
+      setErrors({ form: "Không thể kết nối tới server." });
     }
   };
 
@@ -34,30 +57,25 @@ export default function Login() {
           <span role="img" aria-label="lock">🔒</span> Sign In
         </h1>
 
-        {success && (
-          <p className="text-green-600 text-center font-medium mb-4">
-            {success}
-          </p>
-        )}
+        {success && <p className="text-green-600 text-center font-medium mb-4">{success}</p>}
+        {errors.form && <p className="text-red-600 text-center font-medium mb-4">{errors.form}</p>}
 
         <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
+          {/* Email */}
           <div>
             <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username here ..."
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email here ..."
               className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 ${
-                errors.username
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-blue-500"
+                errors.email ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
               }`}
             />
-            {errors.username && (
-              <p className="text-red-500 text-sm mt-1">{errors.username}</p>
-            )}
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
 
+          {/* Password */}
           <div>
             <input
               type="password"
@@ -65,14 +83,10 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password here ..."
               className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 ${
-                errors.password
-                  ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-300 focus:ring-blue-500"
+                errors.password ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-blue-500"
               }`}
             />
-            {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
-            )}
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
           </div>
 
           <button
