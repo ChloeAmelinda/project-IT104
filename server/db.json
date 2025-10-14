@@ -1,23 +1,164 @@
 {
   "users": [
     {
-      "name": "changiuoi",
+      "name": "changiuo",
       "email": "1@gmail.com",
       "phone": "123456789",
-      "gender": "male",
+      "gender": "Female",
       "password": "123456789",
-      "status": true,
+      "status": false,
       "id": 1
     },
     {
-      "name": "Almond Asriel",
-      "email": "trangthichngunuong@gmail.com",
-      "phone": "1234567899",
+      "name": "chang",
+      "email": "changiuoi@gmail.com",
+      "phone": "12345678999",
       "gender": "female",
       "password": "12345678",
       "status": true,
-      "id": 2
+      "id": 6
     }
   ],
-  "category": []
+  "category": [
+    {
+      "id": 1,
+      "name": "1",
+      "image": "https://wallpapers.com/images/file/hatsune-miku-pictures-5xq2s03oma4svtrv.jpg",
+      "active": true
+    },
+    {
+      "name": "2",
+      "image": "https://wallpapers.com/images/file/hatsune-miku-pictures-5xq2s03oma4svtrv.jpg",
+      "active": true,
+      "id": 2
+    },
+    {
+      "name": "3",
+      "image": "",
+      "active": true,
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "66",
+      "image": "",
+      "active": true
+    },
+    {
+      "name": "66",
+      "image": "😘",
+      "active": false,
+      "id": 5
+    },
+    {
+      "id": 6,
+      "name": "book",
+      "image": "https://wallpapers.com/images/file/hatsune-miku-pictures-5xq2s03oma4svtrv.jpg",
+      "active": true
+    },
+    {
+      "name": "1",
+      "image": "Screenshot 2025-09-15 223735.png",
+      "active": true,
+      "id": 7
+    }
+  ],
+  "monthlyCategories": [
+    {
+      "userId": 1,
+      "month": "2025-02",
+      "amount": 5000000,
+      "id": 1,
+      "categories": []
+    },
+    {
+      "userId": 6,
+      "month": "2025-10",
+      "amount": 12,
+      "categories": [
+        {
+          "id": 1760335360281,
+          "name": "66",
+          "amount": 88
+        },
+        {
+          "id": 1760335312336,
+          "name": "2",
+          "amount": 22
+        },
+        {
+          "id": 1760335279597,
+          "name": "book",
+          "amount": 33
+        },
+        {
+          "id": 1760335272691,
+          "name": "book",
+          "amount": 55
+        }
+      ],
+      "id": 2,
+      "updatedAt": "2025-10-14T05:55:48.294Z"
+    },
+    {
+      "userId": 1,
+      "month": "2025-10",
+      "amount": 500,
+      "id": 3,
+      "updatedAt": "2025-10-13T06:16:19.996Z"
+    },
+    {
+      "userId": 6,
+      "month": "2025-02",
+      "amount": 12333,
+      "id": 4,
+      "updatedAt": "2025-10-14T06:02:42.461Z",
+      "categories": [
+        {
+          "id": 1760422049759,
+          "name": "66",
+          "amount": 44
+        },
+        {
+          "id": 1760421812217,
+          "name": "book",
+          "amount": 33
+        }
+      ]
+    }
+  ],
+  "transaction": [
+    {
+      "category": "Tiền đi chơi",
+      "amount": 1,
+      "note": "11",
+      "month": "September 2025",
+      "type": "income",
+      "id": 1
+    },
+    {
+      "category": "book",
+      "amount": 12,
+      "note": "2",
+      "month": "2025-10",
+      "type": "expense",
+      "id": 4
+    },
+    {
+      "category": "66",
+      "amount": 12,
+      "note": "12",
+      "month": "2025-10",
+      "type": "expense",
+      "id": 6
+    },
+    {
+      "category": "book",
+      "amount": 1,
+      "note": "1",
+      "month": "2025-10",
+      "type": "expense",
+      "id": 7
+    }
+  ]
 }
